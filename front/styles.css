@@ -1,0 +1,141 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #fdfdfd;
+  padding: 40px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.table-name {
+    margin-bottom: 12px;
+}
+
+h1 {
+  font-size: 28px;
+  margin-bottom: 20px;
+}
+
+label {
+  font-weight: bold;
+  margin-right: 8px;
+}
+
+input[type="number"],
+input[type="text"],
+select {
+  padding: 8px 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background-color: white;
+  min-width: 140px;
+}
+
+input[type="number"]:focus,
+input[type="text"]:focus,
+select:focus {
+  outline: none;
+  border-color: #66afe9;
+  box-shadow: 0 0 5px rgba(102, 175, 233, 0.6);
+}
+
+button {
+  background-color: #1976d2;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 14px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+button:hover {
+  background-color: #1565c0;
+}
+
+button:active {
+  background-color: #0d47a1;
+}
+
+#columns {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.column {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #f7f7f7;
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  border: 1px solid #ddd;
+  justify-content: space-between;
+}
+
+.column-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+
+}
+
+.extra-settings {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  display: none;
+}
+
+#message {
+  margin-top: 15px;
+  font-weight: bold;
+  color: #333;
+}
+
+.actions {
+  margin-top: 20px;
+  display: flex;
+  gap: 12px;
+}
+
+.column-header {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  font-weight: bold;
+  margin-top: 16px;
+  margin-bottom: 8px;
+  padding-left: 2px;
+  color: #444;
+}
+.extra-settings > label {
+    line-height: 40px;
+}
+
+.extra-settings > select:not(:last-child) {
+    margin-right: 12px;
+}
+
+.numeric-settings {
+  margin-top: 8px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.numeric-settings input {
+  width: 120px;
+  padding: 4px 6px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.dependents {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}

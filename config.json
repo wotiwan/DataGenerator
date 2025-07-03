@@ -1,0 +1,29 @@
+{
+  "table_name": "people",
+  "n_rows": 10,
+  "columns": [
+    {"name": "id", "type": "id"},
+    {"name": "name", "type": "first_name", "gender": "_male"},
+    {"name": "name", "type": "middle_name", "gender": "_female"},
+    {"name": "name", "type": "last_name", "gender": ""},
+    {"name": "name", "type": "name", "gender": ""},
+    {"name": "email", "type": "email"},
+    {"name": "address", "type": "address"},
+    {"name": "someshi", "type": "discrete", "distribution": "normal", "min": 18, "max": 80, "avg":  25, "std":  10, "missing_values":  0.1},
+    {"name": "breed", "type": "dog_breed", "dependents": ["age", "weight"]},
+    {"name": "age", "type": "age", "depends_on": "breed", "distribution": "normal"},
+    {"name": "gender", "type": "binary", "values": ["male", "female"]},
+    {"name": "light", "type": "lightning"},
+    {"name": "aboba", "type": "rainfall", "missing_values":  0.1},
+    {"name": "aboba_dependent", "type": "lightning_type", "depends_on": "aboba"},
+    {"name": "aboba_dependent2", "type": "lightning_terrain", "depends_on": "aboba"},
+    {"name": "categories", "type": "categorical",
+      "values": [
+        ["сухая гроза", 0.02],
+        ["обычная гроза", 0.9],
+        ["ливень", 0.04],
+        ["град", 0.04]
+      ]
+    }
+  ]
+}
