@@ -22,6 +22,7 @@ label {
 
 input[type="number"],
 input[type="text"],
+input[type="datetime-local"],
 select {
   padding: 8px 10px;
   font-size: 14px;
@@ -31,8 +32,13 @@ select {
   min-width: 140px;
 }
 
+input[type="datetime-local"] {
+    margin-right: 15px;
+}
+
 input[type="number"]:focus,
 input[type="text"]:focus,
+input[type="datetime-local"],
 select:focus {
   outline: none;
   border-color: #66afe9;
@@ -138,4 +144,15 @@ button:active {
   display: flex;
   align-items: center;
   gap: 8px;
+}
+
+.category-row {
+    margin-bottom: 12px;
+}
+.category-row > input {
+    margin-right: 5px;
+}
+
+.missing-values {
+    margin-bottom: 12px;
 }

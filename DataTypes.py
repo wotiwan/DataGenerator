@@ -7,6 +7,7 @@ import geopandas as gpd
 from shapely.geometry import Point
 from scipy.stats import gamma
 from scipy.optimize import minimize_scalar
+from datetime import datetime, timedelta
 
 
 class IdGenerator:
@@ -59,6 +60,44 @@ class AddressGenerator:
         for i in range(self.n):
             addresses.append(self.fake.city() + ", " + self.fake.street_address())
         return addresses
+
+
+class PhoneGenerator:
+    def __init__(self, config_file, n_rows):
+        self.config = config_file
+        self.n = n_rows
+        self.fake = Faker('ru_RU')
+
+    def generate_column(self):
+        phone_numbers = []
+        for i in range(self.n):
+            row_number = self.fake.phone_number()
+            number = ""
+            for j in range(len(row_number)):
+                if row_number[j] in "+1234567890":
+                    number += row_number[j]
+            phone_numbers.append(number)
+        return phone_numbers
+
+
+class DateGenerator:
+    def __init__(self, config_file, n_rows):
+        self.config = config_file
+        self.n = n_rows
+        self.fake = Faker('ru_RU')
+
+        self.start = datetime.fromisoformat(self.config["start_date"])
+        self.end = datetime.fromisoformat(self.config["end_date"])
+
+    def generate_column(self):
+        dates = []
+        delta = self.end - self.start
+        for _ in range(self.n):
+            random_seconds = random.randint(0, int(delta.total_seconds()))
+            dt = self.start + timedelta(seconds=random_seconds)
+            formatted = dt.strftime("%Y-%m-%d %H:%M:%S")
+            dates.append(formatted)
+        return dates
 
 
 class NumbersGenerator:
@@ -115,7 +154,7 @@ class DogAgeGenerator:  # Зависит у собак например от п�
         self.breeds_list = breed_column
         self.breeds = Counter(self.breeds_list)
         self.dependencies_file = json.load(open("dependencies.json", "r", encoding="UTF-8"))
-        print(self.breeds)  # len = 2
+        # print(self.breeds)  # len = 2
         # Нужно пройтись по всем представленным породам. Внутри породы создаём норм распределение.
         # Затем создаём цикл и присваиваем всем колонкам где есть эта порода её число из распределения.
         self.distribution = self.config["distribution"]
@@ -155,11 +194,11 @@ class BaikalLightningGenerator:  # Генерируем координаты
     def __init__(self, config_file, n_rows):
         self.config = config_file
         self.n = n_rows
-        self.gdf = gpd.read_file("Baikal_region.shp")
+        self.gdf = gpd.read_file("geofiles/Baikal_region.shp")
 
     def generate_column(self):
         if self.gdf.crs is None:
-            self.gdf.set_crs(epsg=3857, inplace=True)  # Или нужная тебе проекция
+            self.gdf.set_crs(epsg=3857, inplace=True)
         gdf = self.gdf.to_crs(epsg=4326)
         region = gdf.union_all()  # Объединим в один полигон, если их несколько
 
@@ -272,26 +311,3 @@ class CategoricalGenerator:
         for i in range(self.n):
             categories.append(random.choices(names, weights=probabilities)[0])
         return categories
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# class ColumnGenerator:
-#     def __init__(self, config_file, n_rows):
-#         self.config = config_file
-#         self.n = n_rows
-#     def generate(self):
-#         pass

@@ -10,7 +10,7 @@ app = FastAPI()
 app.mount("/static", StaticFiles(directory="front"), name="static")
 
 
-# Роут главной страницы с генератором (index.html лежит в static)
+# Роут главной страницы с генератором (index.html лежит в front)
 @app.get("/", response_class=HTMLResponse)
 async def read_root():
     with open("front/index.html", "r", encoding="utf-8") as f:

@@ -3,6 +3,7 @@ from faker import Faker
 import pandas as pd
 from DataTypes import *
 import time
+import os
 
 
 class DataGenerator:
@@ -26,6 +27,12 @@ class DataGenerator:
                 print(data[column_name])
             elif column_type == "address":
                 data[column_name] = AddressGenerator(i, self.n).generate_column()
+                print(data[column_name])
+            elif column_type == "phone":
+                data[column_name] = PhoneGenerator(i, self.n).generate_column()
+                print(data[column_name])
+            elif column_type == "date":
+                data[column_name] = DateGenerator(i, self.n).generate_column()
                 print(data[column_name])
             elif column_type == "number":
                 data[column_name] = NumbersGenerator(i, self.n).generate_column()
@@ -53,6 +60,8 @@ class DataGenerator:
                 print(data[column_name])
 
         df = pd.DataFrame(data)
+
+        os.makedirs("cache", exist_ok=True)
         filename = f"cache/{time.time()}.csv"
         df.to_csv(filename, index=False)
 

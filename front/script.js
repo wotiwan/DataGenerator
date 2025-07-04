@@ -30,6 +30,7 @@ function addColumn(defaultName = "", defaultType = "") {
     <option value="age">Возраст</option>
     <option value="dog_breed">Порода собак</option>
     <option value="categorical">Категориальный</option>
+    <option value="lightning">Гроза</option>
     <option value="rainfall">Осадки</option>
   `;
   typeSelect.value = defaultType || "name";
@@ -65,6 +66,10 @@ function addColumn(defaultName = "", defaultType = "") {
 
 function updateSettings(selectElement) {
   const type = selectElement.value;
+  const nameInput = selectElement.parentElement.querySelector('input[name="name"]');
+if (nameInput) {
+  nameInput.value = type;
+}
   const settingsDiv = selectElement.parentElement.querySelector(".extra-settings");
   const columnDiv = settingsDiv.parentElement;
   console.log(columnDiv);
@@ -276,14 +281,18 @@ if (type === "dog_breed" || type === "rainfall") {
   settingsDiv.appendChild(dependentsDiv);
   }
 
-  if (type === "categorical") {
+if (type === "categorical") {
   settingsDiv.style.display = "block";
 
   const instructions = document.createElement("p");
   instructions.textContent = "Укажите категории и их вероятности:";
 
+  const listContainerWrapper = document.createElement("div");
+  listContainerWrapper.className = "category-wrapper";
+
   const listContainer = document.createElement("div");
   listContainer.className = "category-list";
+  listContainerWrapper.appendChild(listContainer);
 
   const addRow = () => {
     const row = document.createElement("div");
@@ -292,6 +301,7 @@ if (type === "dog_breed" || type === "rainfall") {
     const valueInput = document.createElement("input");
     valueInput.name = "category_value";
     valueInput.placeholder = "Категория";
+    valueInput.type = "text";
 
     const probInput = document.createElement("input");
     probInput.name = "category_prob";
@@ -307,7 +317,7 @@ if (type === "dog_breed" || type === "rainfall") {
     row.appendChild(valueInput);
     row.appendChild(probInput);
     row.appendChild(removeBtn);
-    listContainer.appendChild(row);
+    listContainer.appendChild(row);  // 🔽 добавляется вниз
   };
 
   const addBtn = document.createElement("button");
@@ -315,11 +325,35 @@ if (type === "dog_breed" || type === "rainfall") {
   addBtn.textContent = "Добавить категорию";
   addBtn.onclick = addRow;
 
-  addRow(); // по умолчанию одна строка
+  addRow(); // первая строка по умолчанию
 
   settingsDiv.appendChild(instructions);
-  settingsDiv.appendChild(listContainer);
+  settingsDiv.appendChild(listContainerWrapper); // отдельный контейнер снизу
   settingsDiv.appendChild(addBtn);
+}
+
+
+  if (type === "date") {
+  settingsDiv.style.display = "block";
+
+  const startLabel = document.createElement("label");
+  startLabel.textContent = "Начальная дата и время: ";
+
+  const startInput = document.createElement("input");
+  startInput.type = "datetime-local";
+  startInput.name = "start_date";
+
+  const endLabel = document.createElement("label");
+  endLabel.textContent = "Конечная дата и время: ";
+
+  const endInput = document.createElement("input");
+  endInput.type = "datetime-local";
+  endInput.name = "end_date";
+
+  settingsDiv.appendChild(startLabel);
+  settingsDiv.appendChild(startInput);
+  settingsDiv.appendChild(endLabel);
+  settingsDiv.appendChild(endInput);
 }
 
 
