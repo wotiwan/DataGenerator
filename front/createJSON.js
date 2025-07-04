@@ -57,7 +57,6 @@ function generateData() {
     columns.push(col);
   });
 
-  // Остальной код без изменений
   const payload = {
     table_name: tableName,
     n_rows: rowCount,

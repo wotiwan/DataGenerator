@@ -3,7 +3,6 @@ let columnId = 0;
 function addColumn(defaultName = "", defaultType = "") {
   const container = document.getElementById("columns");
 
-  // Внешняя обёртка
   const div = document.createElement("div");
   div.className = "column";
 
@@ -40,24 +39,20 @@ function addColumn(defaultName = "", defaultType = "") {
   const settingsDiv = document.createElement("div");
   settingsDiv.className = "extra-settings";
 
-  // Кнопка "Удалить"
   const removeBtn = document.createElement("button");
   removeBtn.textContent = "Удалить";
   removeBtn.type = "button";
   removeBtn.className = "delete-btn";
   removeBtn.onclick = () => div.remove();
 
-  // Вкладываем элементы
   inner.appendChild(nameInput);
   inner.appendChild(typeSelect);
   inner.appendChild(settingsDiv);
 
-  // Добавляем внутренний и кнопку в основной блок
   div.appendChild(inner);
   div.appendChild(removeBtn);
   container.appendChild(div);
 
-  // Обновление настроек через микрозадержку
   setTimeout(() => updateSettings(typeSelect), 0);
 }
 
@@ -237,7 +232,6 @@ if (type === "dog_breed" || type === "rainfall") {
     dependsInput.name = "depends_on";
     dependsInput.value = parentName;
 
-    // Для lightning_type и lightning_terrain не добавляем distribution
     let distributionInput = null;
     if (type === "dog_breed") {
       distributionInput = document.createElement("input");
@@ -317,7 +311,7 @@ if (type === "categorical") {
     row.appendChild(valueInput);
     row.appendChild(probInput);
     row.appendChild(removeBtn);
-    listContainer.appendChild(row);  // 🔽 добавляется вниз
+    listContainer.appendChild(row);  // добавляется вниз
   };
 
   const addBtn = document.createElement("button");
@@ -357,11 +351,10 @@ if (type === "categorical") {
 }
 
 
-  // Здесь можно добавить обработку других типов, например "number"
+  // Здесь можно добавить обработку других типов
   // if (type === "number") { ... }
 }
 
-// Если хочешь — можно сразу добавить одну колонку по умолчанию:
 document.addEventListener("DOMContentLoaded", () => {
   addColumn("id", "id");
 });
